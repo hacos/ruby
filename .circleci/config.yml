@@ -6,7 +6,18 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.6.3-stretch-node
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          PGHOST: 127.0.0.1
+          PGUSER: sample_api
+          RAILS_ENV: test
       - image: circleci/postgres:9.5-alpine
+        environment:
+          POSTGRES_USER: sample_api
+          POSTGRES_DB: sample_api
+          POSTGRES_PASSWORD: ""
     steps:
       - checkout
       - run:
